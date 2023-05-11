@@ -30,7 +30,7 @@ namespace BattleshipSixFix
             int playerTwoHits = 0;
 
             GameSetup(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, ref randomBoats, ref currentPlayer, ref boatCoordinateX, ref boatCoordinateY, ref boatRotation, ref xCoordShot, ref yCoordShot, ref boatAmount);
-            PlayerTurn(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot);
+            PlayerTurn(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot, ref boatAmount, ref playerOneHits, ref playerTwoHits);
 
         }
 
@@ -161,7 +161,7 @@ namespace BattleshipSixFix
                 Console.ResetColor();
             }
         }
-        private static void PlayerTurn(string[,] playerBoardOne, string[,] playerBoardTwo, string[,] playerOneAttackBoard, string[,] playerTwoAttackBoard, ref bool versusAI, int boardCounter, ref string currentPlayer, ref int xCoordShot, ref int yCoordShot)
+        private static void PlayerTurn(string[,] playerBoardOne, string[,] playerBoardTwo, string[,] playerOneAttackBoard, string[,] playerTwoAttackBoard, ref bool versusAI, int boardCounter, ref string currentPlayer, ref int xCoordShot, ref int yCoordShot, ref int boatAmount, ref int playerOneHits, ref int playerTwoHits)
         {
             Random rnd = new Random();
             if (currentPlayer == "one")
@@ -190,9 +190,13 @@ namespace BattleshipSixFix
                 }
             }
 
-            if (versusAI == true)
+            if (playerOneHits == boatAmount * 3 || playerTwoHits == boatAmount * 3)
             {
-                if (currentPlayer == "two")
+
+            
+                if (versusAI == true)
+                {
+                    if (currentPlayer == "two")
                 {
                     Thread.Sleep(2000);
                     Console.WriteLine("\nCurrent Player: " + currentPlayer);
@@ -202,7 +206,7 @@ namespace BattleshipSixFix
                     {
                         Thread.Sleep(2000);
                         Console.WriteLine("Already shot there try again");
-                        PlayerTurn(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot);
+                        PlayerTurn(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot, ref boatAmount, ref playerOneHits, ref playerTwoHits);
                     }
                     if (playerBoardOne[yCoordShot, xCoordShot] == " ")
                     {
@@ -214,6 +218,8 @@ namespace BattleshipSixFix
                     }
                     else
                     {
+                        //changes the score of hits
+                        playerTwoHits++;
                         Thread.Sleep(2000);
                         Console.WriteLine("Hit Boat " + playerBoardOne[yCoordShot, xCoordShot]);
                         playerTwoAttackBoard[yCoordShot, xCoordShot] = "x";
@@ -233,10 +239,10 @@ namespace BattleshipSixFix
                     }
 
                     //let other player go
-                    PlayerTurn(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot);
+                    PlayerTurn(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot, ref boatAmount, ref playerOneHits, ref playerTwoHits);
 
                 }
-                else
+                    else
                 {
                     //shows which player turn
                     Thread.Sleep(2000);
@@ -272,7 +278,7 @@ namespace BattleshipSixFix
                                         {
                                             Thread.Sleep(2000);
                                             Console.WriteLine("Already shot there try again");
-                                            PlayerTurn(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot);
+                                            PlayerTurn(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot, ref boatAmount, ref playerOneHits, ref playerTwoHits);
                                         }
                                         if (playerBoardTwo[yCoordShot, xCoordShot] == " ")
                                         {
@@ -284,6 +290,8 @@ namespace BattleshipSixFix
                                         }
                                         else
                                         {
+                                            //changes the score of hits
+                                            playerTwoHits++;
                                             Thread.Sleep(2000);
                                             Console.WriteLine("Hit Boat " + playerBoardTwo[yCoordShot, xCoordShot]);
                                             playerOneAttackBoard[yCoordShot, xCoordShot] = "x";
@@ -300,7 +308,7 @@ namespace BattleshipSixFix
                                         {
                                             Thread.Sleep(2000);
                                             Console.WriteLine("Already shot there try again");
-                                            PlayerTurn(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot);
+                                            PlayerTurn(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot, ref boatAmount, ref playerOneHits, ref playerTwoHits);
                                         }
                                         if (playerBoardOne[yCoordShot, xCoordShot] == " ")
                                         {
@@ -312,6 +320,8 @@ namespace BattleshipSixFix
                                         }
                                         else
                                         {
+                                            //changes the score of hits
+                                            playerTwoHits++;
                                             Thread.Sleep(2000);
                                             Console.WriteLine("Hit Boat " + playerBoardOne[yCoordShot, xCoordShot]);
                                             playerTwoAttackBoard[yCoordShot, xCoordShot] = "x";
@@ -332,18 +342,18 @@ namespace BattleshipSixFix
                                     }
 
                                     //let other player go
-                                    PlayerTurn(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot);
+                                    PlayerTurn(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot, ref boatAmount, ref playerOneHits, ref playerTwoHits);
                                 }
-                                else PlayerTurn(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot);
+                                else PlayerTurn(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot, ref boatAmount, ref playerOneHits, ref playerTwoHits);
                             }
-                            else PlayerTurn(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot);
+                            else PlayerTurn(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot, ref boatAmount, ref playerOneHits, ref playerTwoHits);
                         }
-                        else PlayerTurn(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot);
+                        else PlayerTurn(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot, ref boatAmount, ref playerOneHits, ref playerTwoHits);
                     }
-                    else PlayerTurn(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot);
+                    else PlayerTurn(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot, ref boatAmount, ref playerOneHits, ref playerTwoHits);
                 }
-            }
-            else
+                }
+                else
             {
                 //shows which player turn
                 Thread.Sleep(2000);
@@ -379,21 +389,24 @@ namespace BattleshipSixFix
                                     {
                                         Thread.Sleep(2000);
                                         Console.WriteLine("Already shot there try again");
-                                        PlayerTurn(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot);
+                                        PlayerTurn(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot, ref boatAmount, ref playerOneHits, ref playerTwoHits);
                                     }
                                     if (playerBoardTwo[yCoordShot, xCoordShot] == " ")
                                     {
-                                        playerOneAttackBoard[yCoordShot, xCoordShot] = "o";
-                                        playerBoardTwo[yCoordShot, xCoordShot] = "o";
                                         Thread.Sleep(2000);
                                         Console.WriteLine("Miss");
+                                        playerOneAttackBoard[yCoordShot, xCoordShot] = "o";
+                                        playerBoardTwo[yCoordShot, xCoordShot] = "o";
+                                        
                                     }
                                     else
                                     {
-                                        playerOneAttackBoard[yCoordShot, xCoordShot] = "x";
-                                        playerBoardTwo[yCoordShot, xCoordShot] = "x";
+                                        //changes the score of hits
+                                        playerTwoHits++;
                                         Thread.Sleep(2000);
                                         Console.WriteLine("Hit Boat " + playerBoardTwo[yCoordShot, xCoordShot]);
+                                        playerOneAttackBoard[yCoordShot, xCoordShot] = "x";
+                                        playerBoardTwo[yCoordShot, xCoordShot] = "x";
                                     }
 
                                 }
@@ -405,21 +418,24 @@ namespace BattleshipSixFix
                                     {
                                         Thread.Sleep(2000);
                                         Console.WriteLine("Already shot there try again");
-                                        PlayerTurn(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot);
+                                        PlayerTurn(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot, ref boatAmount, ref playerOneHits, ref playerTwoHits);
                                     }
                                     if (playerBoardOne[yCoordShot, xCoordShot] == " ")
                                     {
-                                        playerTwoAttackBoard[yCoordShot, xCoordShot] = "o";
-                                        playerBoardOne[yCoordShot, xCoordShot] = "o";
                                         Thread.Sleep(2000);
                                         Console.WriteLine("Miss");
+                                        playerTwoAttackBoard[yCoordShot, xCoordShot] = "o";
+                                        playerBoardOne[yCoordShot, xCoordShot] = "o";
+                                        
                                     }
                                     else
                                     {
-                                        playerTwoAttackBoard[yCoordShot, xCoordShot] = "x";
-                                        playerBoardOne[yCoordShot, xCoordShot] = "x";
+                                        //changes the score of hits
+                                        playerTwoHits++;
                                         Thread.Sleep(2000);
                                         Console.WriteLine("Hit Boat " + playerBoardOne[yCoordShot, xCoordShot]);
+                                        playerTwoAttackBoard[yCoordShot, xCoordShot] = "x";
+                                        playerBoardOne[yCoordShot, xCoordShot] = "x";
                                     }
 
                                 }
@@ -435,17 +451,17 @@ namespace BattleshipSixFix
                                 }
 
                                 //let other player go
-                                PlayerTurn(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot);
+                                PlayerTurn(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot, ref boatAmount, ref playerOneHits, ref playerTwoHits);
                             }
-                            else PlayerTurn(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot);
+                            else PlayerTurn(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot, ref boatAmount, ref playerOneHits, ref playerTwoHits);
                         }
-                        else PlayerTurn(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot);
+                        else PlayerTurn(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot, ref boatAmount, ref playerOneHits, ref playerTwoHits);
                     }
-                    else PlayerTurn(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot);
+                    else PlayerTurn(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot, ref boatAmount, ref playerOneHits, ref playerTwoHits);
                 }
-                else PlayerTurn(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot);
+                else PlayerTurn(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot, ref boatAmount, ref playerOneHits, ref playerTwoHits);
             }
-
+            }
         }
         private static void GameSetup(string[,] playerBoardOne, string[,] playerBoardTwo, string[,] playerOneAttackBoard, string[,] playerTwoAttackBoard, ref bool versusAI, ref bool randomBoats, ref string currentPlayer, ref int boatCoordinateX, ref int boatCoordinateY, ref int boatRotation, ref int xCoordShot, ref int yCoordShot, ref int boatAmount)
         {
