@@ -31,7 +31,7 @@ namespace BattleshipSixFix
 
             GameSetup(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, ref randomBoats, ref currentPlayer, ref boatCoordinateX, ref boatCoordinateY, ref boatRotation, ref xCoordShot, ref yCoordShot, ref boatAmount);
             PlayerTurn(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot);
-            
+
         }
 
         //makes your own board where you were hit
@@ -734,6 +734,16 @@ namespace BattleshipSixFix
                                                         i++;
                                                     }
                                                 }
+                                                //if not tells player to try again
+                                                else
+                                                {
+                                                    Console.WriteLine("Invalid Position: Place Again");
+                                                }
+                                            }
+                                            //if not tells player to try again
+                                            else
+                                            {
+                                                Console.WriteLine("Invalid Position: Place Again");
                                             }
                                         }
 
@@ -754,11 +764,261 @@ namespace BattleshipSixFix
                                                         playerBoardOne[boatCoordinateY - 1, boatCoordinateX] = "" + (i + 1);
                                                         i++;
                                                     }
+                                                    //if not tells player to try again
+                                                    else
+                                                    {
+                                                        Console.WriteLine("Invalid Position: Place Again");
+                                                    }
                                                 }
+                                                //if not tells player to try again
+                                                else
+                                                {
+                                                    Console.WriteLine("Invalid Position: Place Again");
+                                                }
+                                            }
+                                            //if not tells player to try again
+                                            else
+                                            {
+                                                Console.WriteLine("Invalid Position: Place Again");
                                             }
                                         }
                                     }
+                                    else
+                                    {
+                                        //says that coordinate is invalid
+                                        Console.WriteLine("Y Coordinate Invalid");
+                                    }
                                 }
+                                else
+                                {
+                                    //says that coordinate is invalid
+                                    Console.WriteLine("Y Coordinate Invalid");
+                                }
+                            }
+                            else
+                            {
+                                //says that coordinate is invalid
+                                Console.WriteLine("X Coordinate Invalid");
+                            }
+                        }
+                        else
+                        {
+                            //says that coordinate is invalid
+                            Console.WriteLine("X Coordinate Invalid");
+                        }
+                    }
+
+                    //player two boat randomisation
+                    for (int i = 0; i < boatAmount;)
+                    {
+
+                        //sets rotation and coordinates of the middle of the boat to a random location
+                        boatRotation = rnd.Next(0, 2);
+                        boatCoordinateX = rnd.Next(0, 10);
+                        boatCoordinateY = rnd.Next(0, 10);
+
+                        //0 = horizontal
+                        if (boatRotation == 0)
+                        {
+                            //checks if its smaller than 10
+                            if (boatCoordinateX + 1 < 10)
+                            {
+                                //checks if bigger than -1
+                                if (boatCoordinateX - 1 > -1)
+                                {
+                                    //checks if those spots are not occupied
+                                    if (playerBoardTwo[boatCoordinateY, boatCoordinateX] == " " && playerBoardTwo[boatCoordinateY, boatCoordinateX + 1] == " " && playerBoardTwo[boatCoordinateY, boatCoordinateX - 1] == " ")
+                                    {
+                                        //if so adds those x coordinates to player one board
+                                        playerBoardTwo[boatCoordinateY, boatCoordinateX] = "" + (i + 1);
+                                        playerBoardTwo[boatCoordinateY, boatCoordinateX + 1] = "" + (i + 1);
+                                        playerBoardTwo[boatCoordinateY, boatCoordinateX - 1] = "" + (i + 1);
+                                        i++;
+                                    }
+
+                                }
+                                else
+                                {
+                                    if (playerBoardTwo[boatCoordinateY, boatCoordinateX] == " " && playerBoardTwo[boatCoordinateY, boatCoordinateX + 1] == " " && playerBoardTwo[boatCoordinateY, boatCoordinateX + 2] == " ")
+                                    {
+                                        //since its x is smaller than 0 that means its on the right edge so we'll have the rest of it go to the right
+                                        playerBoardTwo[boatCoordinateY, boatCoordinateX] = "" + (i + 1);
+                                        playerBoardTwo[boatCoordinateY, boatCoordinateX + 1] = "" + (i + 1);
+                                        playerBoardTwo[boatCoordinateY, boatCoordinateX + 2] = "" + (i + 1);
+                                        i++;
+                                    }
+
+                                }
+                            }
+                            else
+                            {
+                                if (playerBoardTwo[boatCoordinateY, boatCoordinateX] == " " && playerBoardTwo[boatCoordinateY, boatCoordinateX - 1] == " " && playerBoardTwo[boatCoordinateY, boatCoordinateX - 2] == " ")
+                                {
+                                    //since its x is bigger than 9 that means its on the left edge so we'll have the rest of it go to the left
+                                    i.ToString("0000");
+                                    playerBoardTwo[boatCoordinateY, boatCoordinateX] = "" + (i + 1);
+                                    playerBoardTwo[boatCoordinateY, boatCoordinateX - 1] = "" + (i + 1);
+                                    playerBoardTwo[boatCoordinateY, boatCoordinateX - 2] = "" + (i + 1);
+                                    i++;
+                                }
+
+                            }
+
+                        }
+
+                        //1 = vertical
+                        if (boatRotation == 1)
+                        {
+                            //checks if its smaller than 10
+                            if (boatCoordinateY + 1 < 10)
+                            {
+                                //checks if bigger than -1
+                                if (boatCoordinateY - 1 > -1)
+                                {
+                                    if (playerBoardTwo[boatCoordinateY, boatCoordinateX] == " " && playerBoardTwo[boatCoordinateY + 1, boatCoordinateX] == " " && playerBoardTwo[boatCoordinateY - 1, boatCoordinateX] == " ")
+                                    {
+                                        //if so adds those x coordinates to player one board
+                                        playerBoardTwo[boatCoordinateY, boatCoordinateX] = "" + (i + 1);
+                                        playerBoardTwo[boatCoordinateY + 1, boatCoordinateX] = "" + (i + 1);
+                                        playerBoardTwo[boatCoordinateY - 1, boatCoordinateX] = "" + (i + 1);
+                                        i++;
+                                    }
+
+                                }
+                                else
+                                {
+                                    if (playerBoardTwo[boatCoordinateY, boatCoordinateX] == " " && playerBoardTwo[boatCoordinateY + 1, boatCoordinateX] == " " && playerBoardTwo[boatCoordinateY + 2, boatCoordinateX] == " ")
+                                    {
+                                        //since its y is smaller than 0 that means its on the bottom edge so we'll have the rest of it go to the down
+                                        playerBoardOne[boatCoordinateY, boatCoordinateX] = "" + (i + 1);
+                                        playerBoardOne[boatCoordinateY + 1, boatCoordinateX] = "" + (i + 1);
+                                        playerBoardOne[boatCoordinateY + 2, boatCoordinateX] = "" + (i + 1);
+                                        i++;
+                                    }
+
+                                }
+                            }
+                            else
+                            {
+                                if (playerBoardTwo[boatCoordinateY, boatCoordinateX] == " " && playerBoardTwo[boatCoordinateY - 1, boatCoordinateX] == " " && playerBoardTwo[boatCoordinateY - 2, boatCoordinateX] == " ")
+                                {
+                                    //since its y is bigger than 9 that means its on the top edge so we'll have the rest of it go to the up
+                                    playerBoardTwo[boatCoordinateY, boatCoordinateX] = "" + (i + 1);
+                                    playerBoardTwo[boatCoordinateY - 1, boatCoordinateX] = "" + (i + 1);
+                                    playerBoardTwo[boatCoordinateY - 2, boatCoordinateX] = "" + (i + 1);
+                                    i++;
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+            if (versusAI == false)
+            {
+                if (randomBoats == true)
+                {
+                    //player one boat randomisation
+                    for (int i = 0; i < boatAmount;)
+                    {
+
+                        //sets rotation and coordinates of the middle of the boat to a random location
+                        boatRotation = rnd.Next(0, 2);
+                        boatCoordinateX = rnd.Next(0, 10);
+                        boatCoordinateY = rnd.Next(0, 10);
+
+                        //0 = horizontal
+                        if (boatRotation == 0)
+                        {
+                            //checks if its smaller than 10
+                            if (boatCoordinateX + 1 < 10)
+                            {
+                                //checks if bigger than -1
+                                if (boatCoordinateX - 1 > -1)
+                                {
+                                    //checks if those spots are not occupied
+                                    if (playerBoardOne[boatCoordinateY, boatCoordinateX] == " " && playerBoardOne[boatCoordinateY, boatCoordinateX + 1] == " " && playerBoardOne[boatCoordinateY, boatCoordinateX - 1] == " ")
+                                    {
+                                        //if so adds those x coordinates to player one board
+                                        playerBoardOne[boatCoordinateY, boatCoordinateX] = "" + (i + 1);
+                                        playerBoardOne[boatCoordinateY, boatCoordinateX + 1] = "" + (i + 1);
+                                        playerBoardOne[boatCoordinateY, boatCoordinateX - 1] = "" + (i + 1);
+                                        i++;
+                                    }
+
+                                }
+                                else
+                                {
+                                    if (playerBoardOne[boatCoordinateY, boatCoordinateX] == " " && playerBoardOne[boatCoordinateY, boatCoordinateX + 1] == " " && playerBoardOne[boatCoordinateY, boatCoordinateX + 2] == " ")
+                                    {
+                                        //since its x is smaller than 0 that means its on the right edge so we'll have the rest of it go to the right
+                                        playerBoardOne[boatCoordinateY, boatCoordinateX] = "" + (i + 1);
+                                        playerBoardOne[boatCoordinateY, boatCoordinateX + 1] = "" + (i + 1);
+                                        playerBoardOne[boatCoordinateY, boatCoordinateX + 2] = "" + (i + 1);
+                                        i++;
+                                    }
+
+                                }
+                            }
+                            else
+                            {
+                                if (playerBoardOne[boatCoordinateY, boatCoordinateX] == " " && playerBoardOne[boatCoordinateY, boatCoordinateX - 1] == " " && playerBoardOne[boatCoordinateY, boatCoordinateX - 2] == " ")
+                                {
+                                    //since its x is bigger than 9 that means its on the left edge so we'll have the rest of it go to the left
+                                    i.ToString("0000");
+                                    playerBoardOne[boatCoordinateY, boatCoordinateX] = "" + (i + 1);
+                                    playerBoardOne[boatCoordinateY, boatCoordinateX - 1] = "" + (i + 1);
+                                    playerBoardOne[boatCoordinateY, boatCoordinateX - 2] = "" + (i + 1);
+                                    i++;
+                                }
+
+                            }
+
+                        }
+
+                        //1 = vertical
+                        if (boatRotation == 1)
+                        {
+                            //checks if its smaller than 10
+                            if (boatCoordinateY + 1 < 10)
+                            {
+                                //checks if bigger than -1
+                                if (boatCoordinateY - 1 > -1)
+                                {
+                                    if (playerBoardOne[boatCoordinateY, boatCoordinateX] == " " && playerBoardOne[boatCoordinateY + 1, boatCoordinateX] == " " && playerBoardOne[boatCoordinateY - 1, boatCoordinateX] == " ")
+                                    {
+                                        //if so adds those x coordinates to player one board
+                                        playerBoardOne[boatCoordinateY, boatCoordinateX] = "" + (i + 1);
+                                        playerBoardOne[boatCoordinateY + 1, boatCoordinateX] = "" + (i + 1);
+                                        playerBoardOne[boatCoordinateY - 1, boatCoordinateX] = "" + (i + 1);
+                                        i++;
+                                    }
+
+                                }
+                                else
+                                {
+                                    if (playerBoardOne[boatCoordinateY, boatCoordinateX] == " " && playerBoardOne[boatCoordinateY + 1, boatCoordinateX] == " " && playerBoardOne[boatCoordinateY + 2, boatCoordinateX] == " ")
+                                    {
+                                        //since its y is smaller than 0 that means its on the bottom edge so we'll have the rest of it go to the down
+                                        playerBoardOne[boatCoordinateY, boatCoordinateX] = "" + (i + 1);
+                                        playerBoardOne[boatCoordinateY + 1, boatCoordinateX] = "" + (i + 1);
+                                        playerBoardOne[boatCoordinateY + 2, boatCoordinateX] = "" + (i + 1);
+                                        i++;
+                                    }
+
+                                }
+                            }
+                            else
+                            {
+                                if (playerBoardOne[boatCoordinateY, boatCoordinateX] == " " && playerBoardOne[boatCoordinateY - 1, boatCoordinateX] == " " && playerBoardOne[boatCoordinateY - 2, boatCoordinateX] == " ")
+                                {
+                                    //since its y is bigger than 9 that means its on the top edge so we'll have the rest of it go to the up
+                                    playerBoardOne[boatCoordinateY, boatCoordinateX] = "" + (i + 1);
+                                    playerBoardOne[boatCoordinateY - 1, boatCoordinateX] = "" + (i + 1);
+                                    playerBoardOne[boatCoordinateY - 2, boatCoordinateX] = "" + (i + 1);
+                                    i++;
+                                }
+
                             }
                         }
                     }
@@ -868,382 +1128,246 @@ namespace BattleshipSixFix
                         }
                     }
                 }
-
-                if (versusAI == false)
+                if (randomBoats == false)
                 {
-                    if (randomBoats == true)
+                    //player one boat placement
+                    Console.WriteLine("Boat Placement Player One");
+                    for (int i = 0; i < boatAmount;)
                     {
-                        //player one boat randomisation
-                        for (int i = 0; i < boatAmount;)
+                        Thread.Sleep(2000);
+                        Console.WriteLine("What x coordinate would you like for the middle of your ship");
+                        boatCoordinateX = Convert.ToInt32(Console.ReadLine());
+
+                        //checks if bigger than 0
+                        if (boatCoordinateX > 0)
                         {
-
-                            //sets rotation and coordinates of the middle of the boat to a random location
-                            boatRotation = rnd.Next(0, 2);
-                            boatCoordinateX = rnd.Next(0, 10);
-                            boatCoordinateY = rnd.Next(0, 10);
-
-                            //0 = horizontal
-                            if (boatRotation == 0)
+                            //checks if smaller than 11
+                            if (boatCoordinateX < 11)
                             {
-                                //checks if its smaller than 10
-                                if (boatCoordinateX + 1 < 10)
+                                Thread.Sleep(2000);
+                                Console.WriteLine("What y coordinate would you like for the middle of your ship");
+                                boatCoordinateY = Convert.ToInt32(Console.ReadLine());
+
+                                //checks if bigger than 0
+                                if (boatCoordinateY > 0)
                                 {
-                                    //checks if bigger than -1
-                                    if (boatCoordinateX - 1 > -1)
+                                    //checks if smaller than 11
+                                    if (boatCoordinateY < 11)
                                     {
-                                        //checks if those spots are not occupied
-                                        if (playerBoardOne[boatCoordinateY, boatCoordinateX] == " " && playerBoardOne[boatCoordinateY, boatCoordinateX + 1] == " " && playerBoardOne[boatCoordinateY, boatCoordinateX - 1] == " ")
+                                        //make them the proper number since arrays start at 0
+                                        boatCoordinateX--;
+                                        boatCoordinateY--;
+                                        Thread.Sleep(2000);
+                                        Console.WriteLine("What rotation for the ship do you want? 0. for horizontal 1. for vertical");
+                                        boatRotation = Convert.ToInt32(Console.ReadLine());
+
+                                        //0 = horizontal
+                                        if (boatRotation == 0)
                                         {
-                                            //if so adds those x coordinates to player one board
-                                            playerBoardOne[boatCoordinateY, boatCoordinateX] = "" + (i + 1);
-                                            playerBoardOne[boatCoordinateY, boatCoordinateX + 1] = "" + (i + 1);
-                                            playerBoardOne[boatCoordinateY, boatCoordinateX - 1] = "" + (i + 1);
-                                            i++;
+                                            //checks if its smaller than 10
+                                            if (boatCoordinateX + 1 < 10)
+                                            {
+                                                //checks if bigger than -1
+                                                if (boatCoordinateX - 1 > -1)
+                                                {
+                                                    //checks if those spots are not occupied
+                                                    if (playerBoardOne[boatCoordinateY, boatCoordinateX] == " " && playerBoardOne[boatCoordinateY, boatCoordinateX + 1] == " " && playerBoardOne[boatCoordinateY, boatCoordinateX - 1] == " ")
+                                                    {
+                                                        //if so adds those x coordinates to player one board
+                                                        playerBoardOne[boatCoordinateY, boatCoordinateX] = "" + (i + 1);
+                                                        playerBoardOne[boatCoordinateY, boatCoordinateX + 1] = "" + (i + 1);
+                                                        playerBoardOne[boatCoordinateY, boatCoordinateX - 1] = "" + (i + 1);
+                                                        i++;
+                                                    }
+                                                }
+                                                //if not tells player to try again
+                                                else
+                                                {
+                                                    Console.WriteLine("Invalid Position: Place Again");
+                                                }
+                                            }
+                                            //if not tells player to try again
+                                            else
+                                            {
+                                                Console.WriteLine("Invalid Position: Place Again");
+                                            }
                                         }
 
+                                        //1 = vertical
+                                        if (boatRotation == 1)
+                                        {
+                                            //checks if its smaller than 10
+                                            if (boatCoordinateY + 1 < 10)
+                                            {
+                                                //checks if bigger than -1
+                                                if (boatCoordinateY - 1 > -1)
+                                                {
+                                                    if (playerBoardOne[boatCoordinateY, boatCoordinateX] == " " && playerBoardOne[boatCoordinateY + 1, boatCoordinateX] == " " && playerBoardOne[boatCoordinateY - 1, boatCoordinateX] == " ")
+                                                    {
+                                                        //if so adds those x coordinates to player one board
+                                                        playerBoardOne[boatCoordinateY, boatCoordinateX] = "" + (i + 1);
+                                                        playerBoardOne[boatCoordinateY + 1, boatCoordinateX] = "" + (i + 1);
+                                                        playerBoardOne[boatCoordinateY - 1, boatCoordinateX] = "" + (i + 1);
+                                                        i++;
+                                                    }
+                                                }
+                                                //if not tells player to try again
+                                                else
+                                                {
+                                                    Console.WriteLine("Invalid Position: Place Again");
+                                                }
+                                            }
+                                            //if not tells player to try again
+                                            else
+                                            {
+                                                Console.WriteLine("Invalid Position: Place Again");
+                                            }
+                                        }
                                     }
                                     else
                                     {
-                                        if (playerBoardOne[boatCoordinateY, boatCoordinateX] == " " && playerBoardOne[boatCoordinateY, boatCoordinateX + 1] == " " && playerBoardOne[boatCoordinateY, boatCoordinateX + 2] == " ")
-                                        {
-                                            //since its x is smaller than 0 that means its on the right edge so we'll have the rest of it go to the right
-                                            playerBoardOne[boatCoordinateY, boatCoordinateX] = "" + (i + 1);
-                                            playerBoardOne[boatCoordinateY, boatCoordinateX + 1] = "" + (i + 1);
-                                            playerBoardOne[boatCoordinateY, boatCoordinateX + 2] = "" + (i + 1);
-                                            i++;
-                                        }
-
+                                        //says that coordinate is invalid
+                                        Console.WriteLine("Y Coordinate Invalid");
                                     }
                                 }
                                 else
                                 {
-                                    if (playerBoardOne[boatCoordinateY, boatCoordinateX] == " " && playerBoardOne[boatCoordinateY, boatCoordinateX - 1] == " " && playerBoardOne[boatCoordinateY, boatCoordinateX - 2] == " ")
-                                    {
-                                        //since its x is bigger than 9 that means its on the left edge so we'll have the rest of it go to the left
-                                        i.ToString("0000");
-                                        playerBoardOne[boatCoordinateY, boatCoordinateX] = "" + (i + 1);
-                                        playerBoardOne[boatCoordinateY, boatCoordinateX - 1] = "" + (i + 1);
-                                        playerBoardOne[boatCoordinateY, boatCoordinateX - 2] = "" + (i + 1);
-                                        i++;
-                                    }
-
+                                    //says that coordinate is invalid
+                                    Console.WriteLine("Y Coordinate Invalid");
                                 }
-
                             }
-
-                            //1 = vertical
-                            if (boatRotation == 1)
+                            else
                             {
-                                //checks if its smaller than 10
-                                if (boatCoordinateY + 1 < 10)
-                                {
-                                    //checks if bigger than -1
-                                    if (boatCoordinateY - 1 > -1)
-                                    {
-                                        if (playerBoardOne[boatCoordinateY, boatCoordinateX] == " " && playerBoardOne[boatCoordinateY + 1, boatCoordinateX] == " " && playerBoardOne[boatCoordinateY - 1, boatCoordinateX] == " ")
-                                        {
-                                            //if so adds those x coordinates to player one board
-                                            playerBoardOne[boatCoordinateY, boatCoordinateX] = "" + (i + 1);
-                                            playerBoardOne[boatCoordinateY + 1, boatCoordinateX] = "" + (i + 1);
-                                            playerBoardOne[boatCoordinateY - 1, boatCoordinateX] = "" + (i + 1);
-                                            i++;
-                                        }
-
-                                    }
-                                    else
-                                    {
-                                        if (playerBoardOne[boatCoordinateY, boatCoordinateX] == " " && playerBoardOne[boatCoordinateY + 1, boatCoordinateX] == " " && playerBoardOne[boatCoordinateY + 2, boatCoordinateX] == " ")
-                                        {
-                                            //since its y is smaller than 0 that means its on the bottom edge so we'll have the rest of it go to the down
-                                            playerBoardOne[boatCoordinateY, boatCoordinateX] = "" + (i + 1);
-                                            playerBoardOne[boatCoordinateY + 1, boatCoordinateX] = "" + (i + 1);
-                                            playerBoardOne[boatCoordinateY + 2, boatCoordinateX] = "" + (i + 1);
-                                            i++;
-                                        }
-
-                                    }
-                                }
-                                else
-                                {
-                                    if (playerBoardOne[boatCoordinateY, boatCoordinateX] == " " && playerBoardOne[boatCoordinateY - 1, boatCoordinateX] == " " && playerBoardOne[boatCoordinateY - 2, boatCoordinateX] == " ")
-                                    {
-                                        //since its y is bigger than 9 that means its on the top edge so we'll have the rest of it go to the up
-                                        playerBoardOne[boatCoordinateY, boatCoordinateX] = "" + (i + 1);
-                                        playerBoardOne[boatCoordinateY - 1, boatCoordinateX] = "" + (i + 1);
-                                        playerBoardOne[boatCoordinateY - 2, boatCoordinateX] = "" + (i + 1);
-                                        i++;
-                                    }
-
-                                }
+                                //says that coordinate is invalid
+                                Console.WriteLine("X Coordinate Invalid");
                             }
                         }
-
-                        //player two boat randomisation
-                        for (int i = 0; i < boatAmount;)
+                        else
                         {
-
-                            //sets rotation and coordinates of the middle of the boat to a random location
-                            boatRotation = rnd.Next(0, 2);
-                            boatCoordinateX = rnd.Next(0, 10);
-                            boatCoordinateY = rnd.Next(0, 10);
-
-                            //0 = horizontal
-                            if (boatRotation == 0)
-                            {
-                                //checks if its smaller than 10
-                                if (boatCoordinateX + 1 < 10)
-                                {
-                                    //checks if bigger than -1
-                                    if (boatCoordinateX - 1 > -1)
-                                    {
-                                        //checks if those spots are not occupied
-                                        if (playerBoardTwo[boatCoordinateY, boatCoordinateX] == " " && playerBoardTwo[boatCoordinateY, boatCoordinateX + 1] == " " && playerBoardTwo[boatCoordinateY, boatCoordinateX - 1] == " ")
-                                        {
-                                            //if so adds those x coordinates to player one board
-                                            playerBoardTwo[boatCoordinateY, boatCoordinateX] = "" + (i + 1);
-                                            playerBoardTwo[boatCoordinateY, boatCoordinateX + 1] = "" + (i + 1);
-                                            playerBoardTwo[boatCoordinateY, boatCoordinateX - 1] = "" + (i + 1);
-                                            i++;
-                                        }
-
-                                    }
-                                    else
-                                    {
-                                        if (playerBoardTwo[boatCoordinateY, boatCoordinateX] == " " && playerBoardTwo[boatCoordinateY, boatCoordinateX + 1] == " " && playerBoardTwo[boatCoordinateY, boatCoordinateX + 2] == " ")
-                                        {
-                                            //since its x is smaller than 0 that means its on the right edge so we'll have the rest of it go to the right
-                                            playerBoardTwo[boatCoordinateY, boatCoordinateX] = "" + (i + 1);
-                                            playerBoardTwo[boatCoordinateY, boatCoordinateX + 1] = "" + (i + 1);
-                                            playerBoardTwo[boatCoordinateY, boatCoordinateX + 2] = "" + (i + 1);
-                                            i++;
-                                        }
-
-                                    }
-                                }
-                                else
-                                {
-                                    if (playerBoardTwo[boatCoordinateY, boatCoordinateX] == " " && playerBoardTwo[boatCoordinateY, boatCoordinateX - 1] == " " && playerBoardTwo[boatCoordinateY, boatCoordinateX - 2] == " ")
-                                    {
-                                        //since its x is bigger than 9 that means its on the left edge so we'll have the rest of it go to the left
-                                        i.ToString("0000");
-                                        playerBoardTwo[boatCoordinateY, boatCoordinateX] = "" + (i + 1);
-                                        playerBoardTwo[boatCoordinateY, boatCoordinateX - 1] = "" + (i + 1);
-                                        playerBoardTwo[boatCoordinateY, boatCoordinateX - 2] = "" + (i + 1);
-                                        i++;
-                                    }
-
-                                }
-
-                            }
-
-                            //1 = vertical
-                            if (boatRotation == 1)
-                            {
-                                //checks if its smaller than 10
-                                if (boatCoordinateY + 1 < 10)
-                                {
-                                    //checks if bigger than -1
-                                    if (boatCoordinateY - 1 > -1)
-                                    {
-                                        if (playerBoardTwo[boatCoordinateY, boatCoordinateX] == " " && playerBoardTwo[boatCoordinateY + 1, boatCoordinateX] == " " && playerBoardTwo[boatCoordinateY - 1, boatCoordinateX] == " ")
-                                        {
-                                            //if so adds those x coordinates to player one board
-                                            playerBoardTwo[boatCoordinateY, boatCoordinateX] = "" + (i + 1);
-                                            playerBoardTwo[boatCoordinateY + 1, boatCoordinateX] = "" + (i + 1);
-                                            playerBoardTwo[boatCoordinateY - 1, boatCoordinateX] = "" + (i + 1);
-                                            i++;
-                                        }
-
-                                    }
-                                    else
-                                    {
-                                        if (playerBoardTwo[boatCoordinateY, boatCoordinateX] == " " && playerBoardTwo[boatCoordinateY + 1, boatCoordinateX] == " " && playerBoardTwo[boatCoordinateY + 2, boatCoordinateX] == " ")
-                                        {
-                                            //since its y is smaller than 0 that means its on the bottom edge so we'll have the rest of it go to the down
-                                            playerBoardOne[boatCoordinateY, boatCoordinateX] = "" + (i + 1);
-                                            playerBoardOne[boatCoordinateY + 1, boatCoordinateX] = "" + (i + 1);
-                                            playerBoardOne[boatCoordinateY + 2, boatCoordinateX] = "" + (i + 1);
-                                            i++;
-                                        }
-
-                                    }
-                                }
-                                else
-                                {
-                                    if (playerBoardTwo[boatCoordinateY, boatCoordinateX] == " " && playerBoardTwo[boatCoordinateY - 1, boatCoordinateX] == " " && playerBoardTwo[boatCoordinateY - 2, boatCoordinateX] == " ")
-                                    {
-                                        //since its y is bigger than 9 that means its on the top edge so we'll have the rest of it go to the up
-                                        playerBoardTwo[boatCoordinateY, boatCoordinateX] = "" + (i + 1);
-                                        playerBoardTwo[boatCoordinateY - 1, boatCoordinateX] = "" + (i + 1);
-                                        playerBoardTwo[boatCoordinateY - 2, boatCoordinateX] = "" + (i + 1);
-                                        i++;
-                                    }
-
-                                }
-                            }
+                            //says that coordinate is invalid
+                            Console.WriteLine("X Coordinate Invalid");
                         }
                     }
-                    if (randomBoats == false)
+
+                    //place two boat placement
+                    Console.WriteLine("Boat Placement Player Two");
+                    for (int i = 0; i < boatAmount;)
                     {
-                        //player one boat placement
-                        Console.WriteLine("Boat Placement Player One");
-                        for (int i = 0; i < boatAmount;)
+                        Thread.Sleep(2000);
+                        Console.WriteLine("What x coordinate would you like for the middle of your ship");
+                        boatCoordinateX = Convert.ToInt32(Console.ReadLine());
+
+                        //checks if bigger than 0
+                        if (boatCoordinateX > 0)
                         {
-                            Thread.Sleep(2000);
-                            Console.WriteLine("What x coordinate would you like for the middle of your ship");
-                            boatCoordinateX = Convert.ToInt32(Console.ReadLine());
-
-                            //checks if bigger than 0
-                            if (boatCoordinateX > 0)
+                            //checks if smaller than 11
+                            if (boatCoordinateX < 11)
                             {
-                                //checks if smaller than 11
-                                if (boatCoordinateX < 11)
+                                Thread.Sleep(2000);
+                                Console.WriteLine("What y coordinate would you like for the middle of your ship");
+                                boatCoordinateY = Convert.ToInt32(Console.ReadLine());
+
+                                //checks if bigger than 0
+                                if (boatCoordinateY > 0)
                                 {
-                                    Thread.Sleep(2000);
-                                    Console.WriteLine("What y coordinate would you like for the middle of your ship");
-                                    boatCoordinateY = Convert.ToInt32(Console.ReadLine());
-
-                                    //checks if bigger than 0
-                                    if (boatCoordinateY > 0)
+                                    //checks if smaller than 11
+                                    if (boatCoordinateY < 11)
                                     {
-                                        //checks if smaller than 11
-                                        if (boatCoordinateY < 11)
-                                        {
-                                            //make them the proper number since arrays start at 0
-                                            boatCoordinateX--;
-                                            boatCoordinateY--;
-                                            Thread.Sleep(2000);
-                                            Console.WriteLine("What rotation for the ship do you want? 0. for horizontal 1. for vertical");
-                                            boatRotation = Convert.ToInt32(Console.ReadLine());
+                                        //make them the proper number since arrays start at 0
+                                        boatCoordinateX--;
+                                        boatCoordinateY--;
+                                        Thread.Sleep(2000);
+                                        Console.WriteLine("What rotation for the ship do you want? 0. for horizontal 1. for vertical");
+                                        boatRotation = Convert.ToInt32(Console.ReadLine());
 
-                                            //0 = horizontal
-                                            if (boatRotation == 0)
+                                        //0 = horizontal
+                                        if (boatRotation == 0)
+                                        {
+                                            //checks if its smaller than 10
+                                            if (boatCoordinateX + 1 < 10)
                                             {
-                                                //checks if its smaller than 10
-                                                if (boatCoordinateX + 1 < 10)
+                                                //checks if bigger than -1
+                                                if (boatCoordinateX - 1 > -1)
                                                 {
-                                                    //checks if bigger than -1
-                                                    if (boatCoordinateX - 1 > -1)
+                                                    //checks if those spots are not occupied
+                                                    if (playerBoardTwo[boatCoordinateY, boatCoordinateX] == " " && playerBoardTwo[boatCoordinateY, boatCoordinateX + 1] == " " && playerBoardTwo[boatCoordinateY, boatCoordinateX - 1] == " ")
                                                     {
-                                                        //checks if those spots are not occupied
-                                                        if (playerBoardOne[boatCoordinateY, boatCoordinateX] == " " && playerBoardOne[boatCoordinateY, boatCoordinateX + 1] == " " && playerBoardOne[boatCoordinateY, boatCoordinateX - 1] == " ")
-                                                        {
-                                                            //if so adds those x coordinates to player one board
-                                                            playerBoardOne[boatCoordinateY, boatCoordinateX] = "" + (i + 1);
-                                                            playerBoardOne[boatCoordinateY, boatCoordinateX + 1] = "" + (i + 1);
-                                                            playerBoardOne[boatCoordinateY, boatCoordinateX - 1] = "" + (i + 1);
-                                                            i++;
-                                                        }
+                                                        //if so adds those x coordinates to player one board
+                                                        playerBoardTwo[boatCoordinateY, boatCoordinateX] = "" + (i + 1);
+                                                        playerBoardTwo[boatCoordinateY, boatCoordinateX + 1] = "" + (i + 1);
+                                                        playerBoardTwo[boatCoordinateY, boatCoordinateX - 1] = "" + (i + 1);
+                                                        i++;
                                                     }
+                                                }
+                                                //if not tells player to try again
+                                                else
+                                                {
+                                                    Console.WriteLine("Invalid Position: Place Again");
                                                 }
                                             }
-
-                                            //1 = vertical
-                                            if (boatRotation == 1)
+                                            //if not tells player to try again
+                                            else
                                             {
-                                                //checks if its smaller than 10
-                                                if (boatCoordinateY + 1 < 10)
+                                                Console.WriteLine("Invalid Position: Place Again");
+                                            }
+                                        }
+
+                                        //1 = vertical
+                                        if (boatRotation == 1)
+                                        {
+                                            //checks if its smaller than 10
+                                            if (boatCoordinateY + 1 < 10)
+                                            {
+                                                //checks if bigger than -1
+                                                if (boatCoordinateY - 1 > -1)
                                                 {
-                                                    //checks if bigger than -1
-                                                    if (boatCoordinateY - 1 > -1)
+                                                    if (playerBoardTwo[boatCoordinateY, boatCoordinateX] == " " && playerBoardTwo[boatCoordinateY + 1, boatCoordinateX] == " " && playerBoardTwo[boatCoordinateY - 1, boatCoordinateX] == " ")
                                                     {
-                                                        if (playerBoardOne[boatCoordinateY, boatCoordinateX] == " " && playerBoardOne[boatCoordinateY + 1, boatCoordinateX] == " " && playerBoardOne[boatCoordinateY - 1, boatCoordinateX] == " ")
-                                                        {
-                                                            //if so adds those x coordinates to player one board
-                                                            playerBoardOne[boatCoordinateY, boatCoordinateX] = "" + (i + 1);
-                                                            playerBoardOne[boatCoordinateY + 1, boatCoordinateX] = "" + (i + 1);
-                                                            playerBoardOne[boatCoordinateY - 1, boatCoordinateX] = "" + (i + 1);
-                                                            i++;
-                                                        }
+                                                        //if so adds those x coordinates to player one board
+                                                        playerBoardTwo[boatCoordinateY, boatCoordinateX] = "" + (i + 1);
+                                                        playerBoardTwo[boatCoordinateY + 1, boatCoordinateX] = "" + (i + 1);
+                                                        playerBoardTwo[boatCoordinateY - 1, boatCoordinateX] = "" + (i + 1);
+                                                        i++;
                                                     }
                                                 }
+                                                //if not tells player to try again
+                                                else
+                                                {
+                                                    Console.WriteLine("Invalid Position: Place Again");
+                                                }
+                                            }
+                                            //if not tells player to try again
+                                            else
+                                            {
+                                                Console.WriteLine("Invalid Position: Place Again");
                                             }
                                         }
                                     }
-                                }
-                            }
-                        }
-
-                        //place two boat placement
-                        Console.WriteLine("Boat Placement Player Two");
-                        for (int i = 0; i < boatAmount;)
-                        {
-                            Thread.Sleep(2000);
-                            Console.WriteLine("What x coordinate would you like for the middle of your ship");
-                            boatCoordinateX = Convert.ToInt32(Console.ReadLine());
-
-                            //checks if bigger than 0
-                            if (boatCoordinateX > 0)
-                            {
-                                //checks if smaller than 11
-                                if (boatCoordinateX < 11)
-                                {
-                                    Thread.Sleep(2000);
-                                    Console.WriteLine("What y coordinate would you like for the middle of your ship");
-                                    boatCoordinateY = Convert.ToInt32(Console.ReadLine());
-
-                                    //checks if bigger than 0
-                                    if (boatCoordinateY > 0)
+                                    else
                                     {
-                                        //checks if smaller than 11
-                                        if (boatCoordinateY < 11)
-                                        {
-                                            //make them the proper number since arrays start at 0
-                                            boatCoordinateX--;
-                                            boatCoordinateY--;
-                                            Thread.Sleep(2000);
-                                            Console.WriteLine("What rotation for the ship do you want? 0. for horizontal 1. for vertical");
-                                            boatRotation = Convert.ToInt32(Console.ReadLine());
-
-                                            //0 = horizontal
-                                            if (boatRotation == 0)
-                                            {
-                                                //checks if its smaller than 10
-                                                if (boatCoordinateX + 1 < 10)
-                                                {
-                                                    //checks if bigger than -1
-                                                    if (boatCoordinateX - 1 > -1)
-                                                    {
-                                                        //checks if those spots are not occupied
-                                                        if (playerBoardTwo[boatCoordinateY, boatCoordinateX] == " " && playerBoardTwo[boatCoordinateY, boatCoordinateX + 1] == " " && playerBoardTwo[boatCoordinateY, boatCoordinateX - 1] == " ")
-                                                        {
-                                                            //if so adds those x coordinates to player one board
-                                                            playerBoardTwo[boatCoordinateY, boatCoordinateX] = "" + (i + 1);
-                                                            playerBoardTwo[boatCoordinateY, boatCoordinateX + 1] = "" + (i + 1);
-                                                            playerBoardTwo[boatCoordinateY, boatCoordinateX - 1] = "" + (i + 1);
-                                                            i++;
-                                                        }
-                                                    }
-                                                }
-                                            }
-
-                                            //1 = vertical
-                                            if (boatRotation == 1)
-                                            {
-                                                //checks if its smaller than 10
-                                                if (boatCoordinateY + 1 < 10)
-                                                {
-                                                    //checks if bigger than -1
-                                                    if (boatCoordinateY - 1 > -1)
-                                                    {
-                                                        if (playerBoardTwo[boatCoordinateY, boatCoordinateX] == " " && playerBoardTwo[boatCoordinateY + 1, boatCoordinateX] == " " && playerBoardTwo[boatCoordinateY - 1, boatCoordinateX] == " ")
-                                                        {
-                                                            //if so adds those x coordinates to player one board
-                                                            playerBoardTwo[boatCoordinateY, boatCoordinateX] = "" + (i + 1);
-                                                            playerBoardTwo[boatCoordinateY + 1, boatCoordinateX] = "" + (i + 1);
-                                                            playerBoardTwo[boatCoordinateY - 1, boatCoordinateX] = "" + (i + 1);
-                                                            i++;
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
+                                        //says that coordinate is invalid
+                                        Console.WriteLine("Y Coordinate Invalid");
                                     }
                                 }
+                                else
+                                {
+                                    //says that coordinate is invalid
+                                    Console.WriteLine("Y Coordinate Invalid");
+                                }
+                            }
+                            else
+                            {
+                                //says that coordinate is invalid
+                                Console.WriteLine("X Coordinate Invalid");
                             }
                         }
-
+                        else
+                        {
+                            //says that coordinate is invalid
+                            Console.WriteLine("X Coordinate Invalid");
+                        }
                     }
+
                 }
             }
         }
