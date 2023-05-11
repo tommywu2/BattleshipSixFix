@@ -164,7 +164,13 @@ namespace BattleshipSixFix
         private static void PlayerTurn(string[,] playerBoardOne, string[,] playerBoardTwo, string[,] playerOneAttackBoard, string[,] playerTwoAttackBoard, ref bool versusAI, int boardCounter, ref string currentPlayer, ref int xCoordShot, ref int yCoordShot, ref int boatAmount, ref int playerOneHits, ref int playerTwoHits, ref bool randomBoats, ref int boatCoordinateX, ref int boatCoordinateY, ref int boatRotation)
         {
             Random rnd = new Random();
-            if (currentPlayer == "one")
+            if (versusAI == true && currentPlayer == "two")
+            {
+                xCoordShot = rnd.Next(0, 10);
+                yCoordShot = rnd.Next(0, 10);
+            }
+            
+            if (currentPlayer == "one" || (currentPlayer == "two" && versusAI == false))
             {
                 //creates the players board and the attack board
                 Thread.Sleep(1000);
@@ -173,31 +179,17 @@ namespace BattleshipSixFix
                 CreateAttackBoard(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, boardCounter, ref currentPlayer);
 
             }
-            if (currentPlayer == "two")
-            {
-                if (versusAI == true)
-                {
-                    xCoordShot = rnd.Next(0, 10);
-                    yCoordShot = rnd.Next(0, 10);
-                }
-                if (versusAI == false)
-                {
-                    //creates the players board and the attack board
-                    Thread.Sleep(1000);
-                    CreateBoard(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, boardCounter, ref currentPlayer);
-                    Thread.Sleep(1000);
-                    CreateAttackBoard(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, boardCounter, ref currentPlayer);
-                }
-            }
 
             if (playerOneHits == boatAmount * 3 || playerTwoHits == boatAmount * 3)
             {
                 if (playerOneHits == boatAmount * 3)
                 {
-                    Console.WriteLine("Player One Wins");
+                    Console.Clear();
+                    Console.WriteLine("\nPlayer One Wins");
                 }
                 if (playerTwoHits == boatAmount * 3)
                 {
+                    Console.Clear();
                     Console.WriteLine("\nPlayer Two Wins");
                 }
                 string playAgain = "no";
@@ -208,6 +200,11 @@ namespace BattleshipSixFix
                 {
                     Console.Clear();
                     GameSetup(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, ref randomBoats, ref currentPlayer, ref boatCoordinateX, ref boatCoordinateY, ref boatRotation, ref xCoordShot, ref yCoordShot, ref boatAmount, ref boardCounter, ref playerOneHits, ref playerTwoHits);
+                }
+                else
+                {
+                    //close the application
+                    Environment.Exit(0);
                 }
                 
             }
