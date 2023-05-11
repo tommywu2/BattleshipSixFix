@@ -206,17 +206,19 @@ namespace BattleshipSixFix
                     }
                     if (playerBoardOne[yCoordShot, xCoordShot] == " ")
                     {
-                        playerTwoAttackBoard[yCoordShot, xCoordShot] = "o";
-                        playerBoardOne[yCoordShot, xCoordShot] = "o";
                         Thread.Sleep(2000);
                         Console.WriteLine("Miss");
+                        playerTwoAttackBoard[yCoordShot, xCoordShot] = "o";
+                        playerBoardOne[yCoordShot, xCoordShot] = "o";
+                        
                     }
                     else
                     {
-                        playerTwoAttackBoard[yCoordShot, xCoordShot] = "x";
-                        playerBoardOne[yCoordShot, xCoordShot] = "x";
                         Thread.Sleep(2000);
                         Console.WriteLine("Hit Boat " + playerBoardOne[yCoordShot, xCoordShot]);
+                        playerTwoAttackBoard[yCoordShot, xCoordShot] = "x";
+                        playerBoardOne[yCoordShot, xCoordShot] = "x";
+                        
                     }
 
                     if (currentPlayer == "one")
@@ -274,17 +276,19 @@ namespace BattleshipSixFix
                                         }
                                         if (playerBoardTwo[yCoordShot, xCoordShot] == " ")
                                         {
-                                            playerOneAttackBoard[yCoordShot, xCoordShot] = "o";
-                                            playerBoardTwo[yCoordShot, xCoordShot] = "o";
                                             Thread.Sleep(2000);
                                             Console.WriteLine("Miss");
+                                            playerOneAttackBoard[yCoordShot, xCoordShot] = "o";
+                                            playerBoardTwo[yCoordShot, xCoordShot] = "o";
+                                            
                                         }
                                         else
                                         {
-                                            playerOneAttackBoard[yCoordShot, xCoordShot] = "x";
-                                            playerBoardTwo[yCoordShot, xCoordShot] = "x";
                                             Thread.Sleep(2000);
                                             Console.WriteLine("Hit Boat " + playerBoardTwo[yCoordShot, xCoordShot]);
+                                            playerOneAttackBoard[yCoordShot, xCoordShot] = "x";
+                                            playerBoardTwo[yCoordShot, xCoordShot] = "x";
+                                            
                                         }
 
                                     }
@@ -300,17 +304,19 @@ namespace BattleshipSixFix
                                         }
                                         if (playerBoardOne[yCoordShot, xCoordShot] == " ")
                                         {
-                                            playerTwoAttackBoard[yCoordShot, xCoordShot] = "o";
-                                            playerBoardOne[yCoordShot, xCoordShot] = "o";
                                             Thread.Sleep(2000);
                                             Console.WriteLine("Miss");
+                                            playerTwoAttackBoard[yCoordShot, xCoordShot] = "o";
+                                            playerBoardOne[yCoordShot, xCoordShot] = "o";
+                                            
                                         }
                                         else
                                         {
-                                            playerTwoAttackBoard[yCoordShot, xCoordShot] = "x";
-                                            playerBoardOne[yCoordShot, xCoordShot] = "x";
                                             Thread.Sleep(2000);
                                             Console.WriteLine("Hit Boat " + playerBoardOne[yCoordShot, xCoordShot]);
+                                            playerTwoAttackBoard[yCoordShot, xCoordShot] = "x";
+                                            playerBoardOne[yCoordShot, xCoordShot] = "x";
+                                            
                                         }
 
                                     }
