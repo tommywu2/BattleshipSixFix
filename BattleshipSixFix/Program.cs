@@ -200,9 +200,16 @@ namespace BattleshipSixFix
                 {
                     Console.WriteLine("\nPlayer Two Wins");
                 }
-                Thread.Sleep(2000);
-                Console.Clear();
-                GameSetup(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, ref randomBoats, ref currentPlayer, ref boatCoordinateX, ref boatCoordinateY, ref boatRotation, ref xCoordShot, ref yCoordShot, ref boatAmount, ref boardCounter, ref playerOneHits, ref playerTwoHits);
+                string playAgain = "no";
+                Thread.Sleep(1000);
+                Console.WriteLine("Do you want to play again?");
+                playAgain = Convert.ToString(Console.ReadLine());
+                if (playAgain == "yes")
+                {
+                    Console.Clear();
+                    GameSetup(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, ref randomBoats, ref currentPlayer, ref boatCoordinateX, ref boatCoordinateY, ref boatRotation, ref xCoordShot, ref yCoordShot, ref boatAmount, ref boardCounter, ref playerOneHits, ref playerTwoHits);
+                }
+                
             }
             else
             {
