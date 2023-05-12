@@ -168,49 +168,55 @@ namespace BattleshipSixFix
             //variables and other useful things
             string playAgain = null;
             string hitAreaLetter = null;
-            string fileName = @"C:\Temp\Battleship Winner";
+            //file location for winner
+            string fileName = @"C:\Temp\Battleship Winner.txt";
+            StreamWriter log;
 
             //checks if any player has hit all enemy boats
             if (playerOneHits == boatAmount * 3 || playerTwoHits == boatAmount * 3)
             {
                 Console.Clear();
-
+                //makes a file with winner
+                if (!File.Exists("Battleship Winner.txt"))
+                {
+                    log = new StreamWriter("Battleship Winner.txt");
+                }
+                else
+                {
+                    log = File.AppendText("Battleship Winner.txt");
+                }
                 if (playerOneHits == boatAmount * 3)
                 {
                     Console.WriteLine("Player One Wins");
-                    using (StreamWriter sw = File.CreateText(fileName + DateTime.Now.ToString() + ".txt"))
+                    
+                    if (versusAI == false)
                     {
-                        if (versusAI == false)
-                        {
-                            sw.WriteLine("Winner: Player One");
-                            sw.WriteLine("Loser: Player Two");
-                        }
-                        if (versusAI == true)
-                        {
-                            sw.WriteLine("Winner: Player One");
-                            sw.WriteLine("Loser: Player AI");
-                        }
-                        sw.WriteLine("Date: " + DateTime.Now.ToString());
+                        log.WriteLine("Winner: Player One");
+                        log.WriteLine("Loser: Player Two");
                     }
+                    if (versusAI == true)
+                    {
+                        log.WriteLine("Winner: Player One");
+                        log.WriteLine("Loser: Player AI");
+                    }
+                    log.WriteLine("Date: " + DateTime.Now.ToString());
                 }
 
                 if (playerTwoHits == boatAmount * 3)
                 {
                     Console.WriteLine("Player Two Wins");
-                    using (StreamWriter sw = File.CreateText(fileName + DateTime.Now.ToString() + ".txt"))
+                    //makes a file with winner
+                    if (versusAI == false)
                     {
-                        if (versusAI == false)
-                        {
-                            sw.WriteLine("Winner: Player Two");
-                            sw.WriteLine("Loser: Player One");
-                        }
-                        if (versusAI == true)
-                        {
-                            sw.WriteLine("Winner: Player AI");
-                            sw.WriteLine("Loser: Player One");
-                        }
-                        sw.WriteLine("Date: " + DateTime.Now.ToString());
+                        log.WriteLine("Winner: Player Two");
+                        log.WriteLine("Loser: Player One");
                     }
+                    if (versusAI == true)
+                    {
+                        log.WriteLine("Winner: Player AI");
+                        log.WriteLine("Loser: Player One");
+                    }
+                    log.WriteLine("Date: " + DateTime.Now.ToString());
                 }
                 
 
