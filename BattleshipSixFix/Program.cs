@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -167,25 +168,56 @@ namespace BattleshipSixFix
             //variables and other useful things
             string playAgain = null;
             string hitAreaLetter = null;
+            
 
             //checks if any player has hit all enemy boats
             if (playerOneHits == boatAmount * 3 || playerTwoHits == boatAmount * 3)
             {
                 Console.Clear();
-
+                //location of the log
+                TextWriter log = new StreamWriter(@"C:\Log.txt", true);
+                //check if anyone hits all enemy boats
                 if (playerOneHits == boatAmount * 3)
                 {
                     Console.WriteLine("Player One Wins");
+
+                    log.WriteLine("Winner Player One");
+                    //logs the winner and loser
+                    if (versusAI == true)
+                    {
+                        log.WriteLine("Loser Player AI");
+                    }
+                    if (versusAI == false)
+                    {
+                        log.WriteLine("Loser Player Two");
+                    }
                 }
 
                 if (playerTwoHits == boatAmount * 3)
                 {
                     Console.WriteLine("Player Two Wins");
+                    //logs the winner and loser
+                    if (versusAI == true)
+                    {
+                        log.WriteLine("Winner Player AI");
+                    }
+                    if (versusAI == false)
+                    {
+                        log.WriteLine("Winner Player Two");
+                    }
+                    log.WriteLine("Loser Player One");
                 }
-
+                //writes the hits, amount of boats and time than closes it
+                log.WriteLine(DateTime.Now.ToString());
+                log.WriteLine("Boat Amount: " + boatAmount);
+                log.WriteLine("Player One Hits " + playerOneHits + " Boats");
+                log.WriteLine("Player Two Hits " + playerTwoHits + " Boats");
+                log.Close();
                 Thread.Sleep(500);
+                //ask if wanna play again
                 Console.WriteLine("Do you want to play again?");
                 playAgain = Convert.ToString(Console.ReadLine());
+                //if play again starts it up, if no closes the game
                 if (playAgain == "yes")
                 {
                     Console.Clear();
@@ -202,6 +234,7 @@ namespace BattleshipSixFix
             //checks if versing ai and player is two since player two is ai
             if (versusAI == true && currentPlayer == "two")
             {
+                //sets the x and y shot of the ai to random number between 0 and 9
                 xCoordShot = rnd.Next(0, 10);
                 yCoordShot = rnd.Next(0, 10);
             }
@@ -226,7 +259,7 @@ namespace BattleshipSixFix
             if (versusAI == true && currentPlayer == "two")
             {
                 
-                
+                //checks if cheater ai if not writes the stuff since hard ai takes multiple turns and dont want anyone knowing he a dirty cheater
                 if (aiCheating == false)
                 {
                     Console.Clear();
@@ -235,6 +268,7 @@ namespace BattleshipSixFix
                     Thread.Sleep(500);
                     Console.WriteLine("Shot x: " + (xCoordShot + 1) + " y: " + (yCoordShot + 1));
                 }
+                //checks if there is a o or x meaning it has already been hit and letting the ai shoot again
                 if (playerBoardOne[yCoordShot, xCoordShot] == "o" || playerBoardOne[yCoordShot, xCoordShot] == "x")
                 {
                     if (aiCheating == false)
@@ -245,6 +279,7 @@ namespace BattleshipSixFix
                     PlayerTurn(ref rnd, playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, ref aiCheating, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot, ref boatAmount, ref playerOneHits, ref playerTwoHits, ref randomBoats, ref boatCoordinateX, ref boatCoordinateY, ref boatRotation);
 
                 }
+                //checks if was blank if was than it was a miss and declares it unless its cheating
                 if (playerBoardOne[yCoordShot, xCoordShot] == " ")
                 {
                     if (aiCheating == false)
@@ -262,6 +297,7 @@ namespace BattleshipSixFix
                 }
                 else
                 {
+                    //says the things its suppose to after it has shot or there would be like 50 since cheater ai shoots so much to get a hit
                     if (aiCheating == true)
                     {
                         Thread.Sleep(500);
@@ -277,18 +313,19 @@ namespace BattleshipSixFix
                     playerBoardOne[yCoordShot, xCoordShot] = "x";
 
                 }
-
+                // if the player is one it goes to two if it isnt it goes to one since two players
                 if (currentPlayer == "one")
                 {
-                    //changes to next player
+                    //changes to player tow
                     currentPlayer = "two";
                 }
                 else
                 {
-                    //changes to next player
+                    //changes to player one
                     currentPlayer = "one";
                 }
-                Thread.Sleep(2000);
+                //write where the ai shot after clearing all the other stuff so you knoww where they hit you
+                Thread.Sleep(1000);
                 Console.Clear();
                 Console.WriteLine("Shot x: " + (xCoordShot + 1) + " y: " + (yCoordShot + 1));
                 //let other player go
@@ -303,6 +340,7 @@ namespace BattleshipSixFix
                 Thread.Sleep(500);
                 Console.WriteLine("\nCurrent Player: " + currentPlayer);
 
+                //asks for the x coord of your shot and records it
                 Thread.Sleep(500);
                 Console.WriteLine("What x coordinate for shot");
                 xCoordShot = Convert.ToInt32(Console.ReadLine());
@@ -313,6 +351,7 @@ namespace BattleshipSixFix
                     //makes it the proper number for the array since array starts at 0
                     xCoordShot--;
 
+                    //asks for the y coord of your shot and records it
                     Thread.Sleep(500);
                     Console.WriteLine("What y coordinate for shot");
                     yCoordShot = Convert.ToInt32(Console.ReadLine());
@@ -329,14 +368,15 @@ namespace BattleshipSixFix
                         Console.WriteLine("Player: " + currentPlayer + " shot x: " + (xCoordShot + 1) + " y: " + (yCoordShot + 1));
                         Thread.Sleep(500);
 
-                        //checks if the spot is a boat, has been hit or nothing and than reports it
                         if (currentPlayer == "one")
                         {
+                            //checks for o or x and if you shot there if so gives you another shot
                             if (playerBoardTwo[yCoordShot, xCoordShot] == "o" || playerBoardTwo[yCoordShot, xCoordShot] == "x")
                             {
                                 Console.WriteLine("Already shot there try again");
                                 PlayerTurn(ref rnd, playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, ref aiCheating, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot, ref boatAmount, ref playerOneHits, ref playerTwoHits, ref randomBoats, ref boatCoordinateX, ref boatCoordinateY, ref boatRotation);
                             }
+                            //checks for blank meaning no boat and you missed
                             if (playerBoardTwo[yCoordShot, xCoordShot] == " ")
                             {
                                 Console.WriteLine("Miss");
@@ -344,6 +384,7 @@ namespace BattleshipSixFix
                                 hitAreaLetter = "o";
 
                             }
+                            //if its anything else then its a boat
                             else
                             {
                                 //changes the score of hits
@@ -358,14 +399,16 @@ namespace BattleshipSixFix
                             playerBoardTwo[yCoordShot, xCoordShot] = hitAreaLetter;
 
                         }
-
+                        //checks if player is two
                         if (currentPlayer == "two")
                         {
+                            //checks for o or x and if you shot there if so gives you another shot
                             if (playerBoardOne[yCoordShot, xCoordShot] == "o" || playerBoardOne[yCoordShot, xCoordShot] == "x")
                             {
                                 Console.WriteLine("Already shot there try again");
                                 PlayerTurn(ref rnd, playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, ref versusAI, ref aiCheating, boardCounter, ref currentPlayer, ref xCoordShot, ref yCoordShot, ref boatAmount, ref playerOneHits, ref playerTwoHits, ref randomBoats, ref boatCoordinateX, ref boatCoordinateY, ref boatRotation);
                             }
+                            //checks for blank meaning no boat and you missed
                             if (playerBoardOne[yCoordShot, xCoordShot] == " ")
                             {
                                 Console.WriteLine("Miss");
@@ -373,6 +416,7 @@ namespace BattleshipSixFix
                                 hitAreaLetter = "o";
 
                             }
+                            //if its anything else then its a boat
                             else
                             {
                                 //changes the score of hits
@@ -386,7 +430,7 @@ namespace BattleshipSixFix
                             playerBoardOne[yCoordShot, xCoordShot] = hitAreaLetter;
 
                         }
-
+                        //checks which player to change to
                         if (currentPlayer == "one")
                         {
                             //changes to player two since turn is over
@@ -399,8 +443,8 @@ namespace BattleshipSixFix
                             currentPlayer = "one";
 
                         }
-                        
-                        Thread.Sleep(2000);
+                        //checks if versing ai and clears it since ai doesnt need to know where you kit
+                        Thread.Sleep(1000);
                         if (versusAI == true)
                         {
                             Console.Clear();
@@ -455,10 +499,10 @@ namespace BattleshipSixFix
                 aiCheating = Convert.ToBoolean(Console.ReadLine());
             }
             Thread.Sleep(500);
-            Console.WriteLine("How many boats do you want?");
+            Console.WriteLine("How many ships do you want?");
             boatAmount = Convert.ToInt32(Console.ReadLine());
             Thread.Sleep(500);
-            Console.WriteLine("Would you like the boats randomly placed? true/false");
+            Console.WriteLine("Would you like the ships randomly placed? true/false");
             randomBoats = Convert.ToBoolean(Console.ReadLine());
             Thread.Sleep(500);
             Console.Clear();
