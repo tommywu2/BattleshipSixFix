@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -167,6 +168,7 @@ namespace BattleshipSixFix
             //variables and other useful things
             string playAgain = null;
             string hitAreaLetter = null;
+            string fileName = @"C:\Temp\Battleship Winner";
 
             //checks if any player has hit all enemy boats
             if (playerOneHits == boatAmount * 3 || playerTwoHits == boatAmount * 3)
@@ -176,12 +178,41 @@ namespace BattleshipSixFix
                 if (playerOneHits == boatAmount * 3)
                 {
                     Console.WriteLine("Player One Wins");
+                    using (StreamWriter sw = File.CreateText(fileName + DateTime.Now.ToString() + ".txt"))
+                    {
+                        if (versusAI == false)
+                        {
+                            sw.WriteLine("Winner: Player One");
+                            sw.WriteLine("Loser: Player Two");
+                        }
+                        if (versusAI == true)
+                        {
+                            sw.WriteLine("Winner: Player One");
+                            sw.WriteLine("Loser: Player AI");
+                        }
+                        sw.WriteLine("Date: " + DateTime.Now.ToString());
+                    }
                 }
 
                 if (playerTwoHits == boatAmount * 3)
                 {
                     Console.WriteLine("Player Two Wins");
+                    using (StreamWriter sw = File.CreateText(fileName + DateTime.Now.ToString() + ".txt"))
+                    {
+                        if (versusAI == false)
+                        {
+                            sw.WriteLine("Winner: Player Two");
+                            sw.WriteLine("Loser: Player One");
+                        }
+                        if (versusAI == true)
+                        {
+                            sw.WriteLine("Winner: Player AI");
+                            sw.WriteLine("Loser: Player One");
+                        }
+                        sw.WriteLine("Date: " + DateTime.Now.ToString());
+                    }
                 }
+                
 
                 Thread.Sleep(500);
                 Console.WriteLine("Do you want to play again?");
