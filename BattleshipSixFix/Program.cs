@@ -209,6 +209,12 @@ namespace BattleshipSixFix
             //checks player is one or its player two but not versing ai thus being a player
             if (currentPlayer == "one" || (currentPlayer == "two" && versusAI == false))
             {
+                //if not versing ai it doesnt show the code unless enter is press to allow the computer to be pass to other player
+                if (versusAI == false)
+                {
+                    Console.WriteLine("Press Enter to show Player " + currentPlayer + " board");
+                    Console.ReadLine();
+                }
                 //creates the players board and the attack board
                 Thread.Sleep(500);
                 CreateBoard(playerBoardOne, playerBoardTwo, playerOneAttackBoard, playerTwoAttackBoard, boardCounter, ref currentPlayer);
